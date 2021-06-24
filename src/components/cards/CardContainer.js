@@ -1,21 +1,15 @@
 import CardList from "./CardList";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const CardContainer = () => {
-    const [cards, setCards] = useState([
-        {
-            id: 1,
-            src: "https://picsum.photos/200"
-        },
-        {
-            id: 2,
-            src: "https://picsum.photos/200"
-        },
-        {
-            id: 3,
-            src: "https://picsum.photos/200"
-        }
-    ]);
+    const [cards, setCards] = useState(); 
+
+    useEffect(() => {
+        axios.get("/cards")
+            .then(res => setCards(res.data))
+            .catch(err => console.log(err));
+    }, []);
 
     return (
         <div className="card-container">

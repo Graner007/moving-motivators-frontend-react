@@ -1,9 +1,11 @@
 import React from 'react'
 
 const Card = ({ card }) => {
+    const mediaUrl = "/media/";
+
     return (
         <div className="card">
-            <img src={card.src} alt="" />
+            <img src={mediaUrl + card.cardType.imageName} alt="" />
         </div>
     )
 }
