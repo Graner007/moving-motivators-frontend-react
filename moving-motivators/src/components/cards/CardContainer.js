@@ -17,7 +17,6 @@ const CardContainer = () => {
         }
     ]);
 
-
     return (
         <div className="card-container">
             <CardList cards={cards} />
