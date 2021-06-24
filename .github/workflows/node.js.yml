@@ -12,13 +12,13 @@ on:
 jobs:
   test:
 
-    runs-on: ${{matrix.os}}
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        
 
     steps:
     - uses: actions/checkout@v2
@@ -26,6 +26,8 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run build --if-present
+        
+    - run: npm install -g react-scripts
+    # - run: npm ci
+    # - run: npm run build --if-present
     - run: npm test
