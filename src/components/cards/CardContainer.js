@@ -3,17 +3,21 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const CardContainer = () => {
-    const [cards, setCards] = useState(); 
+    const [cards, setCards] = useState();
+    const [loading, setLoading] = useState(false); 
 
     useEffect(() => {
         axios.get("/cards")
-            .then(res => setCards(res.data))
+            .then(res => {
+                setCards(res.data);
+                setLoading(true);
+            })
             .catch(err => console.log(err));
     }, []);
 
     return (
         <div className="card-container">
-            <CardList cards={cards} />
+            {loading && <CardList cards={cards} />}
         </div>
     )
 }
