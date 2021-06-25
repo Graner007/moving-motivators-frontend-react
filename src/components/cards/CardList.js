@@ -4,7 +4,7 @@ const CardList = ({cards}) => {
     return (
         <div className="cards">
             {cards.map((card) => (
-              <Card card={card} />  
+              <Card card={card} key={card.id} />  
             ))}
         </div>
     )
