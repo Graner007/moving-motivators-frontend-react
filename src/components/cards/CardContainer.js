@@ -1,7 +1,7 @@
 import CardList from "./CardList";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const CardContainer = () => {
     const [neutralCards, setNeutralCards] = useState([]);
@@ -9,8 +9,9 @@ const CardContainer = () => {
     const [negativeCards, setNegativeCards] = useState([]);
     const [loading, setLoading] = useState(false); 
     const emptyCard = {
+        id: 0,
         cardType: {
-            imageName: "dafault-image"
+            imageName: "default-image"
         }
     }
 
@@ -57,11 +58,11 @@ const CardContainer = () => {
 
     return (
         <DragDropContext onDragEnd = {onDragEnd}>
-            <div className="card-container">
-                {loading && <CardList cards={positiveCards} className="cards positive-cards" />}
-                {loading && <CardList cards={neutralCards} className="cards neutral-cards" />}
-                {loading && <CardList cards={negativeCards} className="cards negative-cards" />}
-            </div>
+                <div className="card-container">
+                    {loading && <CardList cards={positiveCards} className="cards positive-cards" />}
+                    {loading && <CardList cards={neutralCards} className="cards neutral-cards" />}
+                    {loading && <CardList cards={negativeCards} className="cards negative-cards" />}
+                </div>
         </DragDropContext>
     )
 }
