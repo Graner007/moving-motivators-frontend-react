@@ -1,8 +1,8 @@
 import Card from "./Card";
 
-const CardList = ({cards}) => {
+const CardList = ({cards, className}) => {
     return (
-        <div className="cards">
+        <div className={className}>
             {cards.map((card) => (
                 <Card card={card} key={card.id} />  
             ))}
