@@ -12,16 +12,22 @@ const Card = ({ card }) => {
         card.cardType.imageName !== "default-image.png" ? 
         <Draggable draggableId={`${card.verticalStatusName}-${card.id}`} index={card.id}>
           {(provided, snapshot) => (
-            <StyledContainer id ='styled-cont' ref={provided.innerRef} isDragging={snapshot.isDragging} {...provided.draggableProps} {...provided.dragHandleProps}>
+            <StyledContainer id='styled-cont' ref={provided.innerRef} isDragging={snapshot.isDragging} {...provided.draggableProps} {...provided.dragHandleProps}>
               <div className="card">
                 <img src={mediaUrl + card.cardType.imageName} alt="" />
               </div>
             </StyledContainer>
-      )}
+          )}
         </Draggable> :
-        <div className="card">
-            <img src={mediaUrl + card.cardType.imageName} alt="" />
-        </div>
+        <Draggable draggableId={`${card.verticalStatusName}-${card.id}`} index={card.id}>
+        {(provided) => (
+          <StyledContainer id='styled-cont' ref={provided.innerRef} isDragging={false}>
+            <div className="card" data-dg={card.index}>
+              <img src={mediaUrl + card.cardType.imageName} alt="" />
+            </div>
+          </StyledContainer>
+        )}
+      </Draggable>
     )
 }
 
