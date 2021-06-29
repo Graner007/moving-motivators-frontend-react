@@ -1,9 +1,9 @@
-import CardContainer from "./components/cards/CardContainer";
+import Login from "./components/Login";
 
 function App() {
   return (
     <div className="App">
-      <CardContainer />
+      <Login />
     </div>
   );
 }
