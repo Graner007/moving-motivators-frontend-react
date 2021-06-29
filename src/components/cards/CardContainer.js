@@ -2,23 +2,13 @@ import CardList from "./CardList";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { DragDropContext } from 'react-beautiful-dnd';
-import uuid from 'react-uuid';
 
 const CardContainer = () => {
     const [neutralCards, setNeutralCards] = useState([]);
     const [positiveCards, setPositiveCards] = useState([]);
     const [negativeCards, setNegativeCards] = useState([]);
+    const [stage, setStage] = useState(1);
     const [loading, setLoading] = useState(false);
-    
-    const creatEmtpyCard = () => {
-        return {
-            id: uuid(),
-            cardType: {
-                imageName: "default-image.png"
-            },
-            verticalStatusName: ''
-        }
-    }
 
     useEffect(() => {
         axios.get("/cards")
@@ -28,23 +18,24 @@ const CardContainer = () => {
                     switch (card.verticalStatusName) {
                         case "neutral":
                             setNeutralCards(neutralCards => [...neutralCards, card]);
-                            setNegativeCards(negativeCards => [...negativeCards, creatEmtpyCard()]);
-                            setPositiveCards(positiveCards => [...positiveCards, creatEmtpyCard()]);
                             break;
                         case "negative":
-                            setNegativeCards(negativeCards => [...negativeCards, card]);
-                            setNeutralCards(neutralCards => [...neutralCards, creatEmtpyCard()]);
-                            setPositiveCards(positiveCards => [...positiveCards, creatEmtpyCard()]);
+                            setNegativeCards(negativeCards => [...negativeCards, card]); 
                             break;
                         case "positive":
                             setPositiveCards(positiveCards => [...positiveCards, card]);
-                            setNeutralCards(neutralCards => [...neutralCards, creatEmtpyCard()]);
-                            setNegativeCards(negativeCards => [...negativeCards, creatEmtpyCard()]);
                             break;
-                        default:
-                            setNeutralCards(neutralCards => [...neutralCards, creatEmtpyCard()]);
-                            setNegativeCards(negativeCards => [...negativeCards, creatEmtpyCard()]);
-                            setPositiveCards(positiveCards => [...positiveCards, creatEmtpyCard()]);
+                        case "default-image":
+                            if (card.description.includes("neutral")) {
+                                setNeutralCards(neutralCards => [...neutralCards, card]);
+                            }
+                            else if (card.description.includes("positive")) {
+                                setPositiveCards(positiveCards => [...positiveCards, card]);
+                            }
+                            else {
+                                setNegativeCards(negativeCards => [...negativeCards, card]); 
+                            }
+                            break;
                     }
                 });
                 setLoading(true);
@@ -56,14 +47,21 @@ const CardContainer = () => {
         if (!result.destination) {
           return;
         }
+
+        switch (stage) {
+            case 1:
+                break;
+            case 2:
+                break;
+        }
     }
 
     return (
         <DragDropContext onDragEnd={onDragEnd}>
                 <div className="card-container">
-                    {loading && <CardList cards={positiveCards} className="cards positive-cards" droppableId={uuid()} />}
-                    {loading && <CardList cards={neutralCards} className="cards neutral-cards" droppableId={uuid()} />}
-                    {loading && <CardList cards={negativeCards} className="cards negative-cards" droppableId={uuid()} />}
+                    {loading && <CardList cards={positiveCards} className="cards positive-cards" droppableId="positive-cards" />}
+                    {loading && <CardList cards={neutralCards} className="cards neutral-cards" droppableId="neutral-cards" />}
+                    {loading && <CardList cards={negativeCards} className="cards negative-cards" droppableId="negative-cards" />}
                 </div>
         </DragDropContext>
     )

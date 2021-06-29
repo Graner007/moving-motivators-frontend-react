@@ -35,10 +35,20 @@ code {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border: 5px solid goldenrod;
   border-radius: 25px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .card img {
   width: 175px;
   height: 175px;
   border-radius: 25px;
+}
+.footer {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: rgb(235, 195, 64);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
