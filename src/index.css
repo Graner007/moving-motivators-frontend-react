@@ -5,6 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("./static/background.png");
+  background-position: center;
+  background-attachment: fixed;
 }
 
 code {
@@ -29,7 +32,7 @@ code {
 }
 
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border: 5px solid goldenrod;
   border-radius: 25px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -40,7 +43,6 @@ code {
   height: 175px;
   border-radius: 25px;
 }
-
 .footer {
   margin-top: 1rem;
   padding: 1rem;
