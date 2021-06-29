@@ -4,13 +4,40 @@ import axios from "axios";
 import { DragDropContext } from 'react-beautiful-dnd';
 
 const CardContainer = () => {
-    const [cards, setCards] = useState();
-    const [loading, setLoading] = useState(false); 
+    const [neutralCards, setNeutralCards] = useState([]);
+    const [positiveCards, setPositiveCards] = useState([]);
+    const [negativeCards, setNegativeCards] = useState([]);
+    const [stage, setStage] = useState(1);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         axios.get("/cards")
             .then(res => {
-                setCards(res.data);
+                const cards = res.data;
+                cards.forEach(card => {
+                    switch (card.verticalStatusName) {
+                        case "neutral":
+                            setNeutralCards(neutralCards => [...neutralCards, card]);
+                            break;
+                        case "negative":
+                            setNegativeCards(negativeCards => [...negativeCards, card]); 
+                            break;
+                        case "positive":
+                            setPositiveCards(positiveCards => [...positiveCards, card]);
+                            break;
+                        case "default-image":
+                            if (card.description.includes("neutral")) {
+                                setNeutralCards(neutralCards => [...neutralCards, card]);
+                            }
+                            else if (card.description.includes("positive")) {
+                                setPositiveCards(positiveCards => [...positiveCards, card]);
+                            }
+                            else {
+                                setNegativeCards(negativeCards => [...negativeCards, card]); 
+                            }
+                            break;
+                    }
+                });
                 setLoading(true);
             })
             .catch(err => console.log(err));
@@ -21,20 +48,21 @@ const CardContainer = () => {
           return;
         }
 
-        let sourceIdx = parseInt(result.source.index)
-        let destIdx = parseInt(result.destination.index)
-        /* let draggedLink = toDo[0].list[sourceIdx]
-        let newList = toDo[0].list.slice();
-        newList.splice(sourceIdx, 1);
-        newList.splice(destIdx, 0, draggedLink)
-        toDo[0].list = newList;*/
+        switch (stage) {
+            case 1:
+                break;
+            case 2:
+                break;
+        }
     }
 
     return (
-        <DragDropContext onDragEnd = {onDragEnd}>
-            <div className="card-container">
-                {loading && <CardList cards={cards} />}
-            </div>
+        <DragDropContext onDragEnd={onDragEnd}>
+                <div className="card-container">
+                    {loading && <CardList cards={positiveCards} className="cards positive-cards" droppableId="positive-cards" />}
+                    {loading && <CardList cards={neutralCards} className="cards neutral-cards" droppableId="neutral-cards" />}
+                    {loading && <CardList cards={negativeCards} className="cards negative-cards" droppableId="negative-cards" />}
+                </div>
         </DragDropContext>
     )
 }
