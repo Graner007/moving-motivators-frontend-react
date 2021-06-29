@@ -1,7 +1,16 @@
-import { Modal, ModalContent } from "./ModalStyle.js";
+import {
+  Modal,
+  ModalContent,
+  H1,
+  H2,
+  SubmitButton,
+  Input,
+  Label,
+} from "./ModalStyle.js";
 import { useState } from "react";
 import axios from "axios";
-// import { API_BASE_URL } from "../constants";
+import { Icon } from "@iconify/react";
+import groupSolid from "@iconify-icons/clarity/group-solid";
 
 const Registration = () => {
   const [userName, setUserName] = useState("");
@@ -21,40 +30,39 @@ const Registration = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userName: userName, password: password }),
     };
-    axios(`/register`, requestOptions).then((response) =>
+    axios(`/registration`, requestOptions).then((response) =>
       console.log(response)
     );
   };
 
   return (
     <Modal>
+      <H1>Moving Motivators</H1>
       <ModalContent>
         <form onSubmit={onRegister}>
-          <h3>Register</h3>
+          <H2>
+            <Icon icon={groupSolid} width="25px" height="25px" />
+            REGISTRATION
+          </H2>
           <div>
-            <label>User name</label>
-            <br />
-            <input
+            <Label>USERNAME</Label>
+            <Input
               type="name"
               placeholder="Enter user name"
               onChange={handleUserNameChange}
             />
           </div>
-
           <div>
-            <br />
-            <label>Password</label>
-            <br />
-            <input
+            <Label>PASSWORD</Label>
+            <Input
               type="password"
               placeholder="Enter password"
               onChange={handlePasswordChange}
             />
           </div>
-
-          <button style={{ marginTop: "15px" }} type="submit">
+          <SubmitButton style={{ marginTop: "15px" }} type="submit">
             Register
-          </button>
+          </SubmitButton>
         </form>
       </ModalContent>
     </Modal>
