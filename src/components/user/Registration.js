@@ -16,6 +16,8 @@ import groupSolid from "@iconify-icons/clarity/group-solid";
 const Registration = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleUserNameChange = (e) => {
     setUserName(e.target.value);
@@ -25,15 +27,26 @@ const Registration = () => {
     setPassword(e.target.value);
   };
 
-  const onRegister = () => {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userName: userName, password: password }),
-    };
-    axios(`/registration`, requestOptions).then((response) =>
-      console.log(response)
-    );
+  const onRegister = (e) => {
+    e.preventDefault();
+    const data = new FormData();
+
+    data.append("username", userName);
+    data.append("password", password);
+
+    axios.post("/registration", data)
+      .then((res) => {
+        if (res.status === 200) {
+          setError(false);
+          setErrorMessage("");
+      }
+      })
+      .catch((err) => {
+        if (err.response) {
+          setErrorMessage(err.response.data);
+          setError(true);
+        }
+      });
   };
 
   return (
@@ -61,6 +74,7 @@ const Registration = () => {
               onChange={handlePasswordChange}
             />
           </div>
+          { error && <div style={{ color: 'red', padding: '10px' }}>{ errorMessage }</div> }
           <SubmitButton style={{ marginTop: "15px" }} type="submit">
             Register
           </SubmitButton>

@@ -20,6 +20,8 @@ const Login = () => {
   const history = useHistory();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [error, setError] = useState(false);
 
   const handleUserNameChange = (e) => {
     setUserName(e.target.value);
@@ -31,15 +33,28 @@ const Login = () => {
 
   const loginAndSaveUser = (e) => {
     e.preventDefault();
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userName: userName, password: password }),
+
+    const person = {
+      username: userName,
+      password: password
+    }
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
     };
 
-    axios(`/login`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => history.push("/question-groups"));
+    axios.post('/login', person, config)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+          if (err.response.status === 403) {
+              setError(true);
+              setErrorMessage(err.response.data);
+          }
+      })
   };
 
   return (
@@ -67,6 +82,7 @@ const Login = () => {
               onChange={handlePasswordChange}
             />
           </div>
+          {error && <div style={{color: "red"}}>{errorMessage}</div>}
           <SubmitButton type="submit">LOGIN</SubmitButton>
           <RegDiv>
             <RegLink to="/registration">REGISTRATION</RegLink>
