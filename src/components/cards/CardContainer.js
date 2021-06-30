@@ -48,6 +48,8 @@ const CardContainer = () => {
           return;
         }
 
+        console.log(result);
+
         switch (stage) {
             case 1:
                 break;
