@@ -17,7 +17,7 @@ const QuestionGroupConatiner = () => {
   return (
     <div className="question-group-container">
       {questionGroups.map((questionGroup) => (
-        <QuestionGroup questionGroup={questionGroup} key={questionGroup.id} />
+        <QuestionGroup questionGroup={questionGroup} />
       ))}
     </div>
   );
