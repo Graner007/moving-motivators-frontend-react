@@ -47,14 +47,15 @@ const Login = () => {
 
     axios.post('/login', person, config)
       .then((res) => {
-        console.log(res);
+        setError(false);
+        history.push("/question-groups");
       })
       .catch((err) => {
           if (err.response.status === 403) {
               setError(true);
               setErrorMessage(err.response.data);
           }
-      })
+      });
   };
 
   return (

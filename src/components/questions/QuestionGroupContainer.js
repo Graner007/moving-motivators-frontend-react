@@ -11,13 +11,13 @@ const QuestionGroupConatiner = () => {
       .then((res) => {
         setQuestionGroups(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   }, []);
 
   return (
     <div className="question-group-container">
       {questionGroups.map((questionGroup) => (
-        <QuestionGroup questionGroup={questionGroup} />
+        <QuestionGroup questionGroup={questionGroup} key={questionGroup.id} />
       ))}
     </div>
   );

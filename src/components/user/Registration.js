@@ -12,12 +12,14 @@ import axios from "axios";
 // npm install --save-dev @iconify/react @iconify-icons/clarity
 import { Icon } from "@iconify/react";
 import groupSolid from "@iconify-icons/clarity/group-solid";
+import {useHistory} from "react-router-dom";
 
 const Registration = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const history = useHistory();
 
   const handleUserNameChange = (e) => {
     setUserName(e.target.value);
@@ -39,6 +41,7 @@ const Registration = () => {
         if (res.status === 200) {
           setError(false);
           setErrorMessage("");
+          history.push("/login");
       }
       })
       .catch((err) => {

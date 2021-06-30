@@ -2,6 +2,7 @@ import CardList from "./CardList";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { DragDropContext } from 'react-beautiful-dnd';
+import { useLocation } from "react-router-dom";
 
 const CardContainer = () => {
     const [neutralCards, setNeutralCards] = useState([]);
@@ -9,32 +10,26 @@ const CardContainer = () => {
     const [negativeCards, setNegativeCards] = useState([]);
     const [stage, setStage] = useState(1);
     const [loading, setLoading] = useState(false);
+    const url = useLocation().pathname;
+    const lst = url.split("/");
+    const groupName = lst[1];
+    const quesiton = lst[2];
 
     useEffect(() => {
-        axios.get("/cards")
+        axios.get("/" + groupName + "/" + quesiton + "/cards")
             .then(res => {
                 const cards = res.data;
                 cards.forEach(card => {
                     switch (card.verticalStatusName) {
-                        case "neutral":
+                        case "NEUTRAL":
                             setNeutralCards(neutralCards => [...neutralCards, card]);
+                            //setPositiveCards(positiveCards => [...positiveCards, card]);
                             break;
-                        case "negative":
+                        case "NEGATIVE":
                             setNegativeCards(negativeCards => [...negativeCards, card]); 
                             break;
-                        case "positive":
+                        case "POSITIVE":
                             setPositiveCards(positiveCards => [...positiveCards, card]);
-                            break;
-                        case "default-image":
-                            if (card.description.includes("neutral")) {
-                                setNeutralCards(neutralCards => [...neutralCards, card]);
-                            }
-                            else if (card.description.includes("positive")) {
-                                setPositiveCards(positiveCards => [...positiveCards, card]);
-                            }
-                            else {
-                                setNegativeCards(negativeCards => [...negativeCards, card]); 
-                            }
                             break;
                     }
                 });
@@ -52,6 +47,21 @@ const CardContainer = () => {
 
         switch (stage) {
             case 1:
+                if (result.destination.droppableId === "neutral-cards" && result.source.droppableId === "neutral-cards") {
+                    const data = new FormData();
+                    data.append("dragCardId", result.source.index);
+                    data.append("dropCardId", result.destination.index);
+
+                    const config = {
+                        headers: {
+                          "Content-Type": "application/json"
+                        }
+                    };
+
+                    axios.put("/" + groupName + "/" + quesiton + "/cards", data, config)
+                    .then(res => console.log(res))
+                    .catch(err => console.error(err));
+                }
                 break;
             case 2:
                 break;
