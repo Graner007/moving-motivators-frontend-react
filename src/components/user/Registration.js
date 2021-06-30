@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -7,15 +6,14 @@ import {
   SubmitButton,
   Input,
   Label,
-  RegLink,
-  RegDiv,
 } from "./ModalStyle.js";
+import { useState } from "react";
 import axios from "axios";
 // npm install --save-dev @iconify/react @iconify-icons/clarity
 import { Icon } from "@iconify/react";
 import groupSolid from "@iconify-icons/clarity/group-solid";
 
-const Login = () => {
+const Registration = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,27 +25,25 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  const loginAndSaveUser = (e) => {
-    e.preventDefault();
+  const onRegister = () => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userName: userName, password: password }),
     };
-
-    axios(`/login`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => data && console.log(data));
+    axios(`/registration`, requestOptions).then((response) =>
+      console.log(response)
+    );
   };
 
   return (
     <Modal>
       <H1>Moving Motivators</H1>
       <ModalContent>
-        <form onSubmit={loginAndSaveUser}>
+        <form onSubmit={onRegister}>
           <H2>
             <Icon icon={groupSolid} width="25px" height="25px" />
-            SIGN IN
+            REGISTRATION
           </H2>
           <div>
             <Label>USERNAME</Label>
@@ -65,14 +61,13 @@ const Login = () => {
               onChange={handlePasswordChange}
             />
           </div>
-          <SubmitButton type="submit">LOGIN</SubmitButton>
-          <RegDiv>
-            <RegLink to="/registration">REGISTRATION</RegLink>
-          </RegDiv>
+          <SubmitButton style={{ marginTop: "15px" }} type="submit">
+            Register
+          </SubmitButton>
         </form>
       </ModalContent>
     </Modal>
   );
 };
 
-export default Login;
+export default Registration;

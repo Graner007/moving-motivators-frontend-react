@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -6,13 +7,17 @@ import {
   SubmitButton,
   Input,
   Label,
+  RegLink,
+  RegDiv,
 } from "./ModalStyle.js";
-import { useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+// npm install --save-dev @iconify/react @iconify-icons/clarity
 import { Icon } from "@iconify/react";
 import groupSolid from "@iconify-icons/clarity/group-solid";
 
-const Registration = () => {
+const Login = () => {
+  const history = useHistory();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -24,25 +29,27 @@ const Registration = () => {
     setPassword(e.target.value);
   };
 
-  const onRegister = () => {
+  const loginAndSaveUser = (e) => {
+    e.preventDefault();
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userName: userName, password: password }),
     };
-    axios(`/registration`, requestOptions).then((response) =>
-      console.log(response)
-    );
+
+    axios(`/login`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => history.push("/question-groups"));
   };
 
   return (
     <Modal>
       <H1>Moving Motivators</H1>
       <ModalContent>
-        <form onSubmit={onRegister}>
+        <form onSubmit={loginAndSaveUser}>
           <H2>
             <Icon icon={groupSolid} width="25px" height="25px" />
-            REGISTRATION
+            SIGN IN
           </H2>
           <div>
             <Label>USERNAME</Label>
@@ -60,13 +67,14 @@ const Registration = () => {
               onChange={handlePasswordChange}
             />
           </div>
-          <SubmitButton style={{ marginTop: "15px" }} type="submit">
-            Register
-          </SubmitButton>
+          <SubmitButton type="submit">LOGIN</SubmitButton>
+          <RegDiv>
+            <RegLink to="/registration">REGISTRATION</RegLink>
+          </RegDiv>
         </form>
       </ModalContent>
     </Modal>
   );
 };
 
-export default Registration;
+export default Login;
