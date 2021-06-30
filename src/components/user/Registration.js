@@ -9,6 +9,7 @@ import {
 } from "./ModalStyle.js";
 import { useState } from "react";
 import axios from "axios";
+// npm install --save-dev @iconify/react @iconify-icons/clarity
 import { Icon } from "@iconify/react";
 import groupSolid from "@iconify-icons/clarity/group-solid";
 
