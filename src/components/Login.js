@@ -11,11 +11,13 @@ import {
   RegDiv,
 } from "./ModalStyle.js";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 // npm install --save-dev @iconify/react @iconify-icons/clarity
 import { Icon } from "@iconify/react";
 import groupSolid from "@iconify-icons/clarity/group-solid";
 
 const Login = () => {
+  const history = useHistory();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -37,7 +39,7 @@ const Login = () => {
 
     axios(`/login`, requestOptions)
       .then((response) => response.json())
-      .then((data) => data && console.log(data));
+      .then((data) => history.push("/question-groups"));
   };
 
   return (
