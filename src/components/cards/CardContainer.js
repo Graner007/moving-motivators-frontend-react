@@ -26,7 +26,7 @@ const CardContainer = () => {
                             //setPositiveCards(positiveCards => [...positiveCards, card]);
                             break;
                         case "NEGATIVE":
-                            setNegativeCards(negativeCards => [...negativeCards, card]); 
+                            setNegativeCards(negativeCards => [...negativeCards, card]);
                             break;
                         case "POSITIVE":
                             setPositiveCards(positiveCards => [...positiveCards, card]);
@@ -54,7 +54,7 @@ const CardContainer = () => {
 
                     const config = {
                         headers: {
-                          "Content-Type": "application/json"
+                          "Content-Type": "application/x-www-form-urlencoded"
                         }
                     };
 
