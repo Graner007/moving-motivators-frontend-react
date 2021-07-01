@@ -18,13 +18,3 @@ ENV REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL}
 RUN npm run build
 
 CMD ["npm", "start"]
-
-
-#FROM nginx:1.17.0-alpine
-
-#COPY --from=build /app/build /var/www
-#COPY nginx.conf /etc/nginx/nginx.conf
-
-#EXPOSE 80
-
-#ENTRYPOINT ["nginx","-g","daemon off;"]
