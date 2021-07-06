@@ -59,20 +59,20 @@ const CardContainer = () => {
           result.destination.droppableId === "neutral-cards" &&
           result.source.droppableId === "neutral-cards"
         ) {
-          const config = {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: {
+          const payload = {
               dragCardId: result.source.index,
               dropCardId: result.destination.index,
               questionGroupName: groupName,
               questionText: quesiton,
-            },
+          };
+          const config = {
+            headers: {
+              "Content-Type": "application/json",
+            }
           };
 
           axios
-            .put("/cards/put", config)
+            .put("/cards/put", payload, config)
             .then((res) => console.log(res))
             .catch((err) => console.error(err));
         }
