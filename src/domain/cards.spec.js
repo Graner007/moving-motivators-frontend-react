@@ -1,3 +1,5 @@
+import { HorizontalCards } from './horizontal.mjs';
+
 const example_horizontal = {
   'stage':'horizontal',
   'cards': [
@@ -51,3 +53,8 @@ const example_vertical = {
     }
   ]
 }
+
+it('can create horizontal container from JSON', () => {
+  const container = new HorizontalCards(example_horizontal);
+  expect(container).toBeDefined();
+});
