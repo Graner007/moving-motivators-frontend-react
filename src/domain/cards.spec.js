@@ -76,4 +76,10 @@ it('can create the proper view object', () => {
   const horizontal = CardView.fromJsonObject(example_horizontal);
   expect(horizontal.getCardByIndex(0)).toBe('acceptance');
   expect(vertical.getCardByIndex(0)).toBe('order');
-})
+});
+
+it('can move horizontally in horizontal container', () => {
+  const horizontal = CardView.fromJsonObject(example_horizontal);
+  expect(horizontal.moveCard('order').toIndex(5))
+    .toStrictEqual({'result': 'update', 'message': {'from': 6, 'to': 5}});
+});
