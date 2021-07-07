@@ -18,7 +18,7 @@ const QuestionContainer = () => {
         setLoading(true);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [groupName]);
 
   return (
     <div className="question-group-container">

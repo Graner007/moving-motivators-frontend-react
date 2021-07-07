@@ -43,7 +43,7 @@ const CardContainer = () => {
         setLoading(true);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [groupName, quesiton]);
 
   let onDragEnd = (result) => {
     if (!result.destination) {
