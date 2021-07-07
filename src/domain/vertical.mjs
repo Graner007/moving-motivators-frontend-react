@@ -1,8 +1,7 @@
 import { Container } from './container.mjs';
 
 function VerticalCards(jsonObject) {
-  Container.call(this);
-  this.state = jsonObject;
+  Container.call(this, jsonObject);
 }
 
 VerticalCards.prototype = Object.create(Container.prototype);

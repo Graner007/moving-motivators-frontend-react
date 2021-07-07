@@ -1,5 +1,6 @@
 import { HorizontalCards } from './horizontal.mjs';
 import { VerticalCards } from './vertical.mjs';
+import * as CardView from './cardView.mjs';
 
 const example_horizontal = {
   'stage':'horizontal',
@@ -69,3 +70,10 @@ it('can get card name by index in vertical container', () => {
   const container = new VerticalCards(example_vertical);
   expect(container.getCardByIndex(0)).toBe('order');
 });
+
+it('can create the proper view object', () => {
+  const vertical = CardView.fromJsonObject(example_vertical);
+  const horizontal = CardView.fromJsonObject(example_horizontal);
+  expect(horizontal.getCardByIndex(0)).toBe('acceptance');
+  expect(vertical.getCardByIndex(0)).toBe('order');
+})

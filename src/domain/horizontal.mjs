@@ -1,8 +1,7 @@
 import { Container } from './container.mjs';
 
-function HorizontalCards(jsonEncoded) {
-  Container.call(this);
-  this.state = jsonEncoded;
+function HorizontalCards(jsonObject) {
+  Container.call(this, jsonObject);
 }
 
 HorizontalCards.prototype = Object.create(Container.prototype);
