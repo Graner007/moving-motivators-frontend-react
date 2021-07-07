@@ -1,4 +1,5 @@
 import { HorizontalCards } from './horizontal.mjs';
+import { VerticalCards } from './vertical.mjs';
 
 const example_horizontal = {
   'stage':'horizontal',
@@ -57,4 +58,14 @@ const example_vertical = {
 it('can create horizontal container from JSON', () => {
   const container = new HorizontalCards(example_horizontal);
   expect(container).toBeDefined();
+});
+
+it('can get card name by index in horizontal container', () => {
+  const container = new HorizontalCards(example_horizontal);
+  expect(container.getCardByIndex(0)).toBe('acceptance');
+});
+
+it('can get card name by index in vertical container', () => {
+  const container = new VerticalCards(example_vertical);
+  expect(container.getCardByIndex(0)).toBe('order');
 });
