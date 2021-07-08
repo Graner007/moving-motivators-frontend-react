@@ -2,9 +2,9 @@ import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import Card from "./Card";
 
+const StyledContainer = styled.div``;
+
 const CardList = ({cards, className, droppableId}) => {
-    const StyledContainer = styled.div`
-    `;
 
     return (
         <Droppable droppableId={droppableId}>
