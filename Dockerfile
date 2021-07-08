@@ -18,13 +18,15 @@ ENV REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL}
 RUN npm run build
 
 
-FROM nginx:1.17.8-alpine
+FROM nginx:alpine
 
-COPY --from=build /app/build /usr/share/nginx/html
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
 
-RUN rm /etc/nginx/conf.d/default.conf
+WORKDIR /usr/share/nginx/html
 
-COPY nginx/nginx.conf /etc/nginx/conf.d
+RUN rm -rf ./*
+
+COPY --from=build /app/build .
 
 EXPOSE 80
 
