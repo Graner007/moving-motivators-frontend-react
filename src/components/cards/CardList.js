@@ -12,10 +12,10 @@ const CardList = ({cards, className, droppableId}) => {
                 <StyledContainer ref={provided.innerRef} {...provided.droppableProps}>
                     <div className={className}>
                         {cards.map((card) => (
-                            <Card card={card} key={card.id} />  
+                            <Card card={card} key={card.id} />
                         ))}
                     </div>
-                    {provided.placeholder} 
+                    {provided.placeholder}
                 </StyledContainer>
             )}
         </Droppable>
