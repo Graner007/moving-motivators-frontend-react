@@ -83,3 +83,18 @@ it('can move horizontally in horizontal container', () => {
   expect(horizontal.moveCard('order').toIndex(5))
     .toStrictEqual({'result': 'update', 'message': {'from': 6, 'to': 5}});
 });
+
+it('won\'t move without change', () => {
+  const horizontal = CardView.fromJsonObject(example_horizontal);
+  expect(horizontal.moveCard('order').toIndex(6))
+    .toStrictEqual({'result': 'no-op'});
+});
+
+it('can\'t move vertically in first stage', () => {
+  const horizontal = CardView.fromJsonObject(example_horizontal);
+  const matcher = /Can't move vertically/;
+  expect(() => horizontal.moveCard('order').up())
+    .toThrow(matcher);
+  expect(() => horizontal.moveCard('order').down())
+    .toThrow(matcher);
+});

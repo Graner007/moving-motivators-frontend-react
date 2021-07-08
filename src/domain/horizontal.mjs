@@ -29,7 +29,7 @@ HorizontalMove.prototype.constructor = HorizontalMove;
 
 HorizontalMove.prototype.toIndex = function(index) {
   if (index === this.index) {
-    return {'TODO': 'TODO'};
+    return {'result': 'no-op'};
   }
   if (index <= 0 || index > 9) {
     throw Error(`index ${index} out of range`);
