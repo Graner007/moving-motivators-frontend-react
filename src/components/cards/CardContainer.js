@@ -46,11 +46,11 @@ const CardContainer = () => {
   }, [groupName, quesiton]);
 
   let onDragEnd = (result) => {
+    console.log(result);
+
     if (!result.destination) {
       return;
     }
-
-    console.log(result);
 
     // eslint-disable-next-line default-case
     switch (stage) {
@@ -59,6 +59,12 @@ const CardContainer = () => {
           result.destination.droppableId === "neutral-cards" &&
           result.source.droppableId === "neutral-cards"
         ) {
+          const oldIndex = result.source.index-1;
+          const newOrder = [...neutralCards.slice(0, oldIndex),
+                            ...neutralCards.slice(oldIndex+1),
+                            neutralCards[oldIndex]];
+          setNeutralCards(newOrder);
+
           const payload = {
               dragCardId: result.source.index,
               dropCardId: result.destination.index,
@@ -71,10 +77,10 @@ const CardContainer = () => {
             }
           };
 
-          axios
-            .put("/cards/put", payload, config)
-            .then((res) => console.log(res))
-            .catch((err) => console.error(err));
+          // axios
+          //   .put("/cards/put", payload, config)
+          //   .then((res) => console.log(res))
+          //   .catch((err) => console.error(err));
         }
         break;
       case 2:
@@ -87,23 +93,9 @@ const CardContainer = () => {
       <div className="card-container">
         {loading && (
           <CardList
-            cards={positiveCards}
-            className="cards positive-cards"
-            droppableId="positive-cards"
-          />
-        )}
-        {loading && (
-          <CardList
             cards={neutralCards}
             className="cards neutral-cards"
             droppableId="neutral-cards"
-          />
-        )}
-        {loading && (
-          <CardList
-            cards={negativeCards}
-            className="cards negative-cards"
-            droppableId="negative-cards"
           />
         )}
       </div>
