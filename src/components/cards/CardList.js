@@ -2,9 +2,9 @@ import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import Card from "./Card";
 
+const StyledContainer = styled.div``;
+
 const CardList = ({cards, className, droppableId}) => {
-    const StyledContainer = styled.div`
-    `;
 
     return (
         <Droppable droppableId={droppableId}>
@@ -12,10 +12,10 @@ const CardList = ({cards, className, droppableId}) => {
                 <StyledContainer ref={provided.innerRef} {...provided.droppableProps}>
                     <div className={className}>
                         {cards.map((card) => (
-                            <Card card={card} key={card.id} />  
+                            <Card card={card} key={card.id} />
                         ))}
                     </div>
-                    {provided.placeholder} 
+                    {provided.placeholder}
                 </StyledContainer>
             )}
         </Droppable>

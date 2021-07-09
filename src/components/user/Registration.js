@@ -12,7 +12,7 @@ import axios from "axios";
 // npm install --save-dev @iconify/react @iconify-icons/clarity
 import { Icon } from "@iconify/react";
 import groupSolid from "@iconify-icons/clarity/group-solid";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Registration = () => {
   const [userName, setUserName] = useState("");
@@ -36,13 +36,14 @@ const Registration = () => {
     data.append("username", userName);
     data.append("password", password);
 
-    axios.post("/registration", data)
+    axios
+      .post("/registration", data)
       .then((res) => {
         if (res.status === 200) {
           setError(false);
           setErrorMessage("");
           history.push("/login");
-      }
+        }
       })
       .catch((err) => {
         if (err.response) {
@@ -77,7 +78,9 @@ const Registration = () => {
               onChange={handlePasswordChange}
             />
           </div>
-          { error && <div style={{ color: 'red', padding: '10px' }}>{ errorMessage }</div> }
+          {error && (
+            <div style={{ color: "red", padding: "10px" }}>{errorMessage}</div>
+          )}
           <SubmitButton style={{ marginTop: "15px" }} type="submit">
             Register
           </SubmitButton>
